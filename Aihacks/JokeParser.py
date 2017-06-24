@@ -4,7 +4,7 @@ import re
 import csv
 
 urls = []
-for x in range(1, 2):
+for x in range(1, 5):
     urls.append("http://www.rinkworks.com/jokes/jokes" + str(x) + ".shtml")
 
 for url in urls:
@@ -13,9 +13,10 @@ for url in urls:
     souptext = soup.get_text()
     asdf = re.split('#\d', souptext)
 
-    with open('eggs.csv', 'wb') as csvfile:
+    with open('eggs.csv', 'a') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=' ',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for idx, jokes in enumerate(asdf):
             if idx == 0 or idx == len(asdf) -1: continue
-            print(jokes)
+            spamwriter.writerow([jokes, "true"])
+
