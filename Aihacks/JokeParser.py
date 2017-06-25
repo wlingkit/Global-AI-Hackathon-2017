@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import urllib2
+import urllib.request as urllib2
 import re
 
 data = []
