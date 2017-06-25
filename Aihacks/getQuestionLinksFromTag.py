@@ -19,5 +19,4 @@ def getQuestionLinksFromTag(tag):
         for block in blockList:
             matchObj = re.match(r'.*href="(.*)".*', str(block))
             if matchObj:
-                #print "http://snippets.com" + matchObj.group(1)
                 questions.append("http://snippets.com" + matchObj.group(1))
