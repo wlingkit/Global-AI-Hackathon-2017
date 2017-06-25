@@ -10,7 +10,7 @@ stop = stopwords.words("english")
 rows = []
 ranks = []
 
-with open('trainerdatav2.csv') as csvfile:
+with open('trainerdata.csv') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         if row[0] == ' ' or row[0] == '': continue
@@ -56,21 +56,28 @@ forest = RandomForestClassifier(n_estimators = 100)
 forest.fit( train_data_features, ranks)
 
 ## now we have fitted and to test the data
-with open('testdatav2.csv') as csvfile:
+testrows = []
+testranks =[]
+with open('testdata.csv') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         if row[0] == ' ' or row[0] == '': continue
-        ranks.append(row[1])
+        testranks.append(row[1])
         words = row[0].lower().split()
         words = [w for w in words if not w in stopwords.words("english")]
-        rows.append(" ".join(words))
+        testrows.append(" ".join(words))
 
 # Get a bag of words for the test set, and convert to a numpy array
-print(rows)
-test_data_features = vectorizer.transform(rows)
+print(testrows)
+test_data_features = vectorizer.transform(testrows)
+print(test_data_features)
 test_data_features = test_data_features.toarray()
 
 # Use the random forest to make sentiment label predictions
 print(test_data_features)
 result = forest.predict(test_data_features)
-print(result)
+for idx, res in enumerate(result):
+    print(testrows[idx], res)
+
+scores = forest.score(test_data_features, testranks)
+print(scores)
