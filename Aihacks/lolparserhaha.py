@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as soup
 import re
 import urllib.request
 
-
+#yoloswag
 with urllib.request.urlopen('http://snippets.com/tags/accessories.htm') as url:
     s = url.read()
 soup = soup(s, "lxml")
